@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>我的图片轮播</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+        *{
+            /*border:1px solid #f0ad4e;*/
+            margin:0;
+            padding:0;
+        }
+        .board{
+            width:1212px;
+            height:600px;
+            margin:0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+        .board img{
+            width:100%;
+            position: absolute;
+        }
+        .locaManage{
+            width:400px;
+            height:20px;
+            left:50%;
+            bottom:50px;
+            margin-left:-200px;
+            list-style: none;
+            z-index:20;
+            position: absolute;
+        }
+        .location{
+            width:80px;
+            height:20px;
+            margin-left: 40px;
+            background-color: #25b0ff;
+            opacity: .5;
+            float: left;
+        }
+        #show{
+            z-index: 11;
+        }
+        #show2{
+            z-index: 10;
+        }
+        .localActive{
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="board">
+        <img id="show" src="img/1.jpeg" alt="">
+        <img id="show2" src="img/1.jpeg" alt="">
+        <ul class="locaManage">
+            <li class="location localActive" value="1"></li>
+            <li class="location" value="2"></li>
+            <li class="location" value="3"></li>
+        </ul>
+    </div>
+    <script>
+        "use strict"
+        var showList=[1,2,3]//开始显示编号1
+        var myTimer=null
+        myTimer=setInterval(function () {
+                var item=showList.shift()
+
+                var str='.board ul li:eq('+item+')'
+                if(item=='3'){
+                    str='.board ul li:eq(0)'
+                }
+                $(str).addClass('localActive').siblings().removeClass('localActive')
+                showList.push(item)
+                console.log(showList)
+                $('#show').attr('src','img/'+showList[0]+'.jpeg')
+            },3000)
+
+        $('.location').click(function () {
+            clearInterval(myTimer)
+            myTimer=setInterval(function () {
+                var item=showList.shift()
+
+                var str='.board ul li:eq('+item+')'
+                if(item=='3'){
+                    str='.board ul li:eq(0)'
+                }
+                $(str).addClass('localActive').siblings().removeClass('localActive')
+                showList.push(item)
+                console.log(showList)
+                $('#show').attr('src','img/'+showList[0]+'.jpeg')
+            },3000)
+            //console.log($(this).val())
+            while(showList[0]!=$(this).val()){
+                var item=showList.shift()
+                showList.push(item)
+            }
+            console.log(showList)
+            $('#show').attr('src','img/'+$(this).val()+'.jpeg')
+            $(this).addClass('localActive').siblings().removeClass('localActive')
+
+        })
+    </script>
+</body>
+</html>

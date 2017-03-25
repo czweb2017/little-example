@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>我的图片轮播</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <style>
+        *{
+            /*border:1px solid #f0ad4e;*/
+            margin:0;
+            padding:0;
+        }
+        .board{
+            width:1212px;
+            height:600px;
+            margin:0 auto;
+            /*overflow: hidden;*/
+        }
+        .board ul{
+            margin-left: -1212px;
+            height:600px;
+            width:3636px;
+            list-style: none;
+            overflow: hidden;
+        }
+        .board img{
+            width:100%;
+        }
+        .board ul li{
+            height:600px;
+            float: left;
+            width:1212px;
+        }
+    </style>
+</head>
+<body>
+    <div class="board">
+        <ul>
+            <li><img id="show" src="img/3.jpeg" alt=""></li>
+            <li><img id="show1" src="img/1.jpeg" alt=""></li>
+            <li><img id="show2" src="img/2.jpeg" alt=""></li>
+        </ul>
+    </div>
+    <button onclick="goLeft()">图片左移</button>
+    <button onclick="goRight()">图片右移</button>
+    <p>注意：不要用力过猛，有个小bug</p>
+    <script>
+        //left
+        function goLeft(){
+            $('.board li:eq(0)').animate({marginLeft:'-1212px'})
+            var src=$('.board li:eq(0) img').attr('src')
+            console.log($('.board li:eq(0) img').attr('src'))
+            setTimeout(function () {
+                $('.board li:eq(0)').remove()
+                var txt='<li><img id="show2" src='+src+'></li>'
+                $('.board ul').append(txt)
+            },500)
+
+        }
+        function goRight(){
+            $('.board li:eq(0)').animate({marginLeft:'1212px'})
+            var src=$('.board li:eq(2) img').attr('src')
+            //console.log($('.board li:eq(2) img').attr('src'))
+            setTimeout(function () {
+                $('.board li:eq(2)').remove()
+                var txt='<li><img src='+src+'></li>'
+                $('.board li:eq(0)').css({marginLeft:'0'})
+                $('.board ul').prepend(txt)
+
+            },500)
+
+        }
+    </script>
+</body>
+</html>
